@@ -3,7 +3,7 @@ package by.balashevich.shapeappweb.validator;
 import by.balashevich.shapeappweb.entity.Point;
 
 public class QuadrangleValidator {
-    private static final String DOUBLE_VALUE_REGEX = "\\d+\\.\\d+";
+    private static final String DOUBLE_VALUE_REGEX = "\\p{Pd}?\\d+\\.\\d+";
     private static final String POINT_VALUE_REGEX = DOUBLE_VALUE_REGEX + "\\s" + DOUBLE_VALUE_REGEX;
     private static final String QUADRANGLE_DATA_REGEX = "(" + POINT_VALUE_REGEX + "\\;\\s){3}" + POINT_VALUE_REGEX + "\\b";
 

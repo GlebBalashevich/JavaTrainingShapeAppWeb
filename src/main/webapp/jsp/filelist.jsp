@@ -8,7 +8,7 @@
 <body>
     <form action="processController" method="post">
         <input type="hidden" name="command" value="read_file">
-        <select name="read_file">
+        <select name="reading_file">
             <c:forEach items="${list}" var="file">
                 <option value="${file.getFileName()}">
                     <c:out value="${file.getFileName()}"/>

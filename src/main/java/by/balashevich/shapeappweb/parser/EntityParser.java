@@ -19,28 +19,28 @@ public class EntityParser {
         List<List<Double>> quadranglesCoordinatesList = new ArrayList<>();
 
         for (String quadrangleDataElement : quadranglesData) {
-            try {
-                quadranglesCoordinatesList.add(parseQuadrangle(quadrangleDataElement));
-            } catch (ShapeProjectException e) {
-                logger.log(Level.ERROR, "Error while parsing quadrangles data", e);
+            List<Double> quadrangleCoordinates = parseQuadrangle(quadrangleDataElement);
+            if (!quadrangleCoordinates.isEmpty()) {
+                quadranglesCoordinatesList.add(quadrangleCoordinates);
             }
-
         }
 
         return quadranglesCoordinatesList;
     }
 
-    public List<Double> parseQuadrangle(String quadrangleData) throws ShapeProjectException {
+    public List<Double> parseQuadrangle(String quadrangleData) {
         QuadrangleValidator validator = new QuadrangleValidator();
         List<Double> quadrangleCoordinates = new ArrayList<>();
 
         if (validator.isQuadrangleDataCorrect(quadrangleData)) {
             String[] pointsData = quadrangleData.split(POINTS_DELIMITER);
             for (String pointDataElement : pointsData) {
-                quadrangleCoordinates.addAll(parsePoint(pointDataElement));
+                try {
+                    quadrangleCoordinates.addAll(parsePoint(pointDataElement));
+                } catch (ShapeProjectException e) {
+                    logger.log(Level.ERROR, "error while parsing point coordinates", e);
+                }
             }
-        } else {
-            throw new ShapeProjectException("Error while parsing quadrangle data");
         }
 
         return quadrangleCoordinates;
@@ -50,7 +50,7 @@ public class EntityParser {
         PointValidator validator = new PointValidator();
         List<Double> pointCoordinates = new ArrayList<>();
 
-        if (validator.isPointDataCorrect(pointData)) {
+        if (validator.isPointDataCorrect(pointData.trim())) {
             String[] coordinatesData = pointData.trim().split(COORDINATES_DELIMITER);
             pointCoordinates.add(Double.parseDouble(coordinatesData[0].trim()));
             pointCoordinates.add(Double.parseDouble(coordinatesData[1].trim()));

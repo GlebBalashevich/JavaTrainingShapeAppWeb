@@ -51,6 +51,6 @@ public class Point {
 
     @Override
     public String toString() {
-        return String.format("Point(%.2f; %.2f)", coordinateX, coordinateY);
+        return String.format("(%.1f;%.1f)", coordinateX, coordinateY);
     }
 }

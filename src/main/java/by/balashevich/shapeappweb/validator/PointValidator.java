@@ -1,8 +1,8 @@
 package by.balashevich.shapeappweb.validator;
 
 public class PointValidator {
-    private static final String DOUBLE_VALUE = "\\d+\\.\\d+";
-    private static final String POINT_VALUE = DOUBLE_VALUE + "\\s" + DOUBLE_VALUE + "\\b";
+    private static final String DOUBLE_VALUE = "\\p{Pd}?\\d+\\.\\d+";
+    private static final String POINT_VALUE = DOUBLE_VALUE + "\\s" + DOUBLE_VALUE;
     private static final int MAX_FLATNESS_VALUE = 100;
     private static final int MIN_FLATNESS_VALUE = -100;
 
